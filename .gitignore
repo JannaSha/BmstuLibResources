@@ -25,6 +25,7 @@ _UpgradeReport_Files/
 BmstuLibResources/bin/
 BmstuLibResources/obj/
 BmstuLibResources/TestResults/
+BmstuLibResources/App_Data/*.docx
 ###################
 # Web publish log #
 ###################
