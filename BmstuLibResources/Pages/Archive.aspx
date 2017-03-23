@@ -1,36 +1,33 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Pages/Master/Site.Master" AutoEventWireup="true" CodeBehind="Archive.aspx.cs" Inherits="BmstuLibResources.Pages.Archive" %>
-<asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-        <h2>Архив исключенных ресурсов<%: Title %></h2>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Pages/Master/Site.Master" AutoEventWireup="true" CodeBehind="Archive.aspx.cs" Inherits="BmstuLibResources.Archive" %>
+<asp:Content ID="Head" ContentPlaceHolderID="HeadHolder" runat="server">
+</asp:Content>
+<asp:Content ID="Body" ContentPlaceHolderID="BodyHolder" runat="server">
+    <h1>Архив</h1>
         <p>
-            <asp:SqlDataSource ID="SqlDsResvResources" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" 
-                SelectCommand="SELECT Res.id, [name], [license_date], [resource_form], [reserve_date], [resource_author], [url], [udc_id], Udc.description as udc, [create_date], [resource_type], (SELECT TOP 1 v.description FROM Validations v WHERE v.resource_id = Res.id ORDER BY v.check_datetime) as error FROM [Resources] Res JOIN [Udc] Udc ON Udc.id = Res.udc_id WHERE (SELECT TOP 1 v.is_valid FROM Validations v WHERE v.resource_id = Res.id ORDER BY v.check_datetime DESC) = 0 AND Res.reserve_date IS NOT NULL">
-            </asp:SqlDataSource>
+            <asp:Label ID="lblInfo" runat="server" Text=""></asp:Label>
         </p>
-        <p>
-            <asp:GridView ID="gvResvResources" runat="server" AllowSorting="True" AutoGenerateColumns="False" BackColor="White" BorderColor="#3366CC" BorderStyle="None" BorderWidth="1px" CellPadding="4" DataKeyNames="id" DataSourceID="SqlDsResvResources">
-                <Columns>
-                    <asp:BoundField DataField="id" HeaderText="ID ресурса" SortExpression="id" />
-                    <asp:BoundField DataField="name" HeaderText="Имя ресурса" SortExpression="name" />
-                    <asp:BoundField DataField="resource_author" HeaderText="Автор ресурса" SortExpression="resource_author" />
-                    <asp:BoundField DataField="url" HeaderText="URL" SortExpression="url" />
-                    <asp:BoundField DataField="udc_id" HeaderText="УДК" SortExpression="udc_id" />
-                    <asp:BoundField DataField="create_date" HeaderText="Дата добавления" SortExpression="create_date" />
-                    <asp:BoundField DataField="reserve_date" HeaderText="Дата искючения" SortExpression="reserve_date" />
-                    <asp:BoundField DataField="resource_type" HeaderText="Тип ресурса" SortExpression="resource_type" />
-                    <asp:BoundField DataField="resource_form" HeaderText="Вид ресурса" SortExpression="resource_form" />
-                    <asp:BoundField DataField="license_date" HeaderText="Дата получения лицензии" SortExpression="license_date" />  
-                    <asp:BoundField DataField="error" HeaderText="Причина ошибки" SortExpression="error" />
-                </Columns>
-                <FooterStyle BackColor="#99CCCC" ForeColor="#003399" />
-                <HeaderStyle BackColor="#003399" Font-Bold="True" ForeColor="#CCCCFF" />
-                <PagerStyle BackColor="#99CCCC" ForeColor="#003399" HorizontalAlign="Left" />
-                <RowStyle BackColor="White" ForeColor="#003399" />
-                <SelectedRowStyle BackColor="#009999" Font-Bold="True" ForeColor="#CCFF99" />
-                <SortedAscendingCellStyle BackColor="#EDF6F6" />
-                <SortedAscendingHeaderStyle BackColor="#0D4AC4" />
-                <SortedDescendingCellStyle BackColor="#D6DFDF" />
-                <SortedDescendingHeaderStyle BackColor="#002876" />
-            </asp:GridView>
-        </p>
-
+        <asp:GridView ID="gvArchive" runat="server" DataSourceID="dsArchive" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" GridLines="None" PageSize="5" DataKeyNames="id">
+        <AlternatingRowStyle BackColor="White" />
+        <Columns>
+            <asp:BoundField DataField="id" HeaderText="ID" InsertVisible="False" ReadOnly="True" SortExpression="id" />
+            <asp:BoundField DataField="name" HeaderText="Имя ресурса" SortExpression="name" />
+            <asp:BoundField DataField="url" HeaderText="Ссылка" SortExpression="url" />
+            <asp:BoundField DataField="udc" HeaderText="УДК" SortExpression="udc" />
+            <asp:BoundField DataField="create_date" HeaderText="Дата создания" SortExpression="create_date" />
+            <asp:BoundField DataField="license" HeaderText="Дата лицензирования" SortExpression="license" />
+            <asp:BoundField DataField="form" HeaderText="Вид" SortExpression="form" />
+            <asp:BoundField DataField="type_res" HeaderText="Тип" SortExpression="type_res" />
+            <asp:BoundField DataField="error" HeaderText="Причина исключения" ReadOnly="True" SortExpression="error" />
+        </Columns>
+        <FooterStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
+        <HeaderStyle BackColor="#E9967A" Font-Bold="True" ForeColor="White" />
+        <PagerStyle BackColor="#FFCC66" ForeColor="#333333" HorizontalAlign="Center" />
+        <RowStyle BackColor="#FFFBD6" ForeColor="#333333" />
+        <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="Navy" />
+        <SortedAscendingCellStyle BackColor="#FDF5AC" />
+        <SortedAscendingHeaderStyle BackColor="#E9967A" />
+        <SortedDescendingCellStyle BackColor="#FCF6C0" />
+        <SortedDescendingHeaderStyle BackColor="#E9967A" />
+        </asp:GridView>
+        <asp:SqlDataSource ID="dsArchive" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT Res.id, [name], [license], [form], [reserve_date], [author], [url], [udc_id], Udc.description as udc, [create_date], [type_res], (SELECT TOP 1 v.description FROM Validations v WHERE v.id_resource = Res.id ORDER BY v.check_date) as error FROM [Resources] Res JOIN [Udc] Udc ON Udc.id = Res.udc_id WHERE (SELECT TOP 1 v.is_valid FROM Validations v WHERE v.id_resource = Res.id ORDER BY v.check_date DESC) = 0 AND Res.reserve_date IS NOT NULL"></asp:SqlDataSource>
 </asp:Content>

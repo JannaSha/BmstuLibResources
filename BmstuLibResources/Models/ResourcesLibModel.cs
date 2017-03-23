@@ -1,10 +1,7 @@
+using System.Data.Entity;
+
 namespace BmstuLibResources
 {
-    using System;
-    using System.Data.Entity;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Linq;
-
     public partial class ResourcesLibModel : DbContext
     {
         public ResourcesLibModel()
@@ -19,14 +16,13 @@ namespace BmstuLibResources
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-       
-
+            //Ресурсы
             modelBuilder.Entity<Resources>()
                 .Property(e => e.name)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Resources>()
-                .Property(e => e.resource_author)
+                .Property(e => e.author)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Resources>()
@@ -38,54 +34,58 @@ namespace BmstuLibResources
                 .IsUnicode(false);
 
             modelBuilder.Entity<Resources>()
-                .Property(e => e.resource_type)
+                .Property(e => e.type_res)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Resources>()
-            .Property(e => e.resource_form)
+            .Property(e => e.form)
             .IsUnicode(false);
 
+            modelBuilder.Entity<Resources>()
+            .Property(e => e.amount);
 
             modelBuilder.Entity<Resources>()
-            .Property(e => e.amount_resource);
-
-            modelBuilder.Entity<Resources>()
-            .Property(e => e.reserve_date);
-
-            modelBuilder.Entity<Resources>()
-            .Property(e => e.license_date);
-
-            modelBuilder.Entity<Resources>()
-            .Property(e => e.create_date);
-
-            modelBuilder.Entity<Resources>()
-            .Property(e => e.resource_form)
+            .Property(e => e.form)
             .IsUnicode(false);
 
             modelBuilder.Entity<Resources>()
             .Property(e => e.is_editing);
 
             modelBuilder.Entity<Resources>()
+            .Property(e => e.is_license);
+
+            modelBuilder.Entity<Resources>()
                 .HasMany(e => e.Stats)
                 .WithRequired(e => e.Resources)
-                .HasForeignKey(e => e.resource_id)
+                .HasForeignKey(e => e.id_resource)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Resources>()
                 .HasMany(e => e.Validations)
                 .WithRequired(e => e.Resources)
-                .HasForeignKey(e => e.resource_id)
+                .HasForeignKey(e => e.id_resource)
                 .WillCascadeOnDelete(false);
 
+            //Статистика
             modelBuilder.Entity<Stats>()
-                .Property(e => e.start_period_datetime);
+                .Property(e => e.start_period);
 
             modelBuilder.Entity<Stats>()
-                .Property(e => e.finish_period_datetime);
+                .Property(e => e.finish_period);
 
             modelBuilder.Entity<Stats>()
                 .Property(e => e.visitors_count);
 
+            //Время
+            modelBuilder.Entity<Resources>()
+                .Property(e => e.create_date);
+
+            modelBuilder.Entity<Resources>()
+                .Property(e => e.reserve_date);
+
+            modelBuilder.Entity<Resources>()
+                .Property(e => e.license);
+            //УДК
             modelBuilder.Entity<Udc>()
                 .Property(e => e.udc_index)
                 .IsUnicode(false);
@@ -100,9 +100,16 @@ namespace BmstuLibResources
                 .HasForeignKey(e => e.udc_id)
                 .WillCascadeOnDelete(false);
 
+            //Валидация
             modelBuilder.Entity<Validations>()
                 .Property(e => e.description)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<Validations>()
+                .Property(e => e.check_date);
+
+            modelBuilder.Entity<Validations>()
+            .Property(e => e.is_valid);
         }
     }
 }

@@ -10,33 +10,51 @@
 namespace BmstuLibResources {
     
     
-    public partial class Site {
+    public partial class Irrelevant {
         
         /// <summary>
-        /// HeadHolder элемент управления.
+        /// lblInfo элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически создаваемое поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder HeadHolder;
+        protected global::System.Web.UI.WebControls.Label lblInfo;
         
         /// <summary>
-        /// form1 элемент управления.
+        /// gvIResources элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически создаваемое поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.WebControls.GridView gvIResources;
         
         /// <summary>
-        /// BodyHolder элемент управления.
+        /// dsIResources элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически создаваемое поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder BodyHolder;
+        protected global::System.Web.UI.WebControls.SqlDataSource dsIResources;
+        
+        /// <summary>
+        /// btnReserve элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnReserve;
+        
+        /// <summary>
+        /// btnHandActualize элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnHandActualize;
     }
 }

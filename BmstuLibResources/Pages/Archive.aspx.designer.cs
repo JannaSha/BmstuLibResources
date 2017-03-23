@@ -7,27 +7,36 @@
 // </автоматически создаваемое>
 //------------------------------------------------------------------------------
 
-namespace BmstuLibResources.Pages {
+namespace BmstuLibResources {
     
     
     public partial class Archive {
         
         /// <summary>
-        /// SqlDsResvResources элемент управления.
+        /// lblInfo элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически создаваемое поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.SqlDataSource SqlDsResvResources;
+        protected global::System.Web.UI.WebControls.Label lblInfo;
         
         /// <summary>
-        /// gvResvResources элемент управления.
+        /// gvArchive элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически создаваемое поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvResvResources;
+        protected global::System.Web.UI.WebControls.GridView gvArchive;
+        
+        /// <summary>
+        /// dsArchive элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource dsArchive;
     }
 }

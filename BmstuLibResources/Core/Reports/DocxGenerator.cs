@@ -59,12 +59,12 @@ namespace BmstuLibResources.Core.Reports
                 {
                     if (DateTime.Compare(dateTo, r.reserve_date.GetValueOrDefault()) < 0 &&
                             DateTime.Compare(r.create_date, dateTo) <= 0)
-                        validData.Add(new DocResourceDescription(r.name, r.resource_author,
+                        validData.Add(new DocResourceDescription(r.name, r.author,
                             true, null, r.create_date, null, 0, r.id));
                 }
                 else
                     if (DateTime.Compare(r.create_date, dateTo) <= 0)
-                        validData.Add(new DocResourceDescription(r.name, r.resource_author,
+                        validData.Add(new DocResourceDescription(r.name, r.author,
                             true, null, r.create_date, null, 0, r.id));
             }
             return validData;
@@ -83,15 +83,15 @@ namespace BmstuLibResources.Core.Reports
                                 DateTime.Compare(dateTo, r.reserve_date.GetValueOrDefault()) > 0)
                     {
                         ResourcesLibModel db1 = new ResourcesLibModel();                      
-                        var temp = db1.Validations.Where(p => p.resource_id == r.id).OrderByDescending(c => c.check_datetime);
+                        var temp = db1.Validations.Where(p => p.id_resource == r.id).OrderByDescending(c => c.check_date);
                         if (temp != null)
                         {
                             Validations val = temp.First();
-                            notValidList.Add(new DocResourceDescription(r.name, r.resource_author, true,
+                            notValidList.Add(new DocResourceDescription(r.name, r.author, true,
                                  val.description, r.create_date, r.reserve_date, 0, r.id));
                         }
                         else
-                            notValidList.Add(new DocResourceDescription(r.name, r.resource_author, true,
+                            notValidList.Add(new DocResourceDescription(r.name, r.author, true,
                                  " ", r.create_date, r.reserve_date, 0, r.id));
                     }
                 }
@@ -104,8 +104,8 @@ namespace BmstuLibResources.Core.Reports
             int amount = 0;
             ResourcesLibModel db = new ResourcesLibModel();
             var stats = db.Stats.Where(
-                p => p.resource_id == idRes && p.start_period_datetime >= dateIn &&
-                p.finish_period_datetime <= dateTo);
+                p => p.id_resource == idRes && p.start_period >= dateIn &&
+                p.finish_period <= dateTo);
             foreach (Stats s in stats)
             {
                 amount += s.visitors_count;
@@ -261,13 +261,13 @@ namespace BmstuLibResources.Core.Reports
                     table.Rows[row].Cells[1].Paragraphs.First().Append(item.create_date.ToString());
                 else
                     table.Rows[row].Cells[1].Paragraphs.First().Append(item.reserve_date.ToString());
-                table.Rows[row].Cells[2].Paragraphs.First().Append(item.resource_author);
+                table.Rows[row].Cells[2].Paragraphs.First().Append(item.author);
                 table.Rows[row].Cells[3].Paragraphs.First().Append("1");
-                table.Rows[row].Cells[4].Paragraphs.First().Append(item.amount_resource.ToString());
+                table.Rows[row].Cells[4].Paragraphs.First().Append(item.amount.ToString());
                 table.Rows[row].Cells[5].Paragraphs.First().Append("Нет");
                 row++;
                 i++;
-                amountRes += item.amount_resource.GetValueOrDefault();
+                amountRes += item.amount.GetValueOrDefault();
             }
 
             table.Rows[row].Cells[0].Paragraphs.First().Append("Итого за " + year.ToString() + "г:");
@@ -351,11 +351,11 @@ namespace BmstuLibResources.Core.Reports
                 {
                     if (DateTime.Compare(dateTo, r.reserve_date.GetValueOrDefault()) < 0 &&
                                 DateTime.Compare(r.create_date, dateTo) <= 0)
-                        result += r.amount_resource.GetValueOrDefault();
+                        result += r.amount.GetValueOrDefault();
                     }
                 else
                     if (DateTime.Compare(r.create_date, dateTo) <= 0)
-                        result += r.amount_resource.GetValueOrDefault();
+                        result += r.amount.GetValueOrDefault();
             }
             return result;
         }
@@ -373,9 +373,9 @@ namespace BmstuLibResources.Core.Reports
                                 DateTime.Compare(dateTo, r.reserve_date.GetValueOrDefault()) > 0)
                     {
                         ResourcesLibModel db1 = new ResourcesLibModel();
-                        var temp = db1.Validations.Where(p => p.resource_id == r.id);
+                        var temp = db1.Validations.Where(p => p.id_resource == r.id);
                         Validations val = temp.First();
-                        result += r.amount_resource.GetValueOrDefault();
+                        result += r.amount.GetValueOrDefault();
                     }
             }
             return result;
@@ -395,13 +395,13 @@ namespace BmstuLibResources.Core.Reports
             var temp1 = GetQuittingResourses(dateStart, dateEnd);
             foreach (Resources item in temp1)
             {
-                amountRetirement += item.amount_resource.GetValueOrDefault();
+                amountRetirement += item.amount.GetValueOrDefault();
             }
 
             var temp2 = GetIncomingResourse(dateStart, dateEnd);
             foreach (Resources item in temp2)
             {
-                amountIncoming += item.amount_resource.GetValueOrDefault();
+                amountIncoming += item.amount.GetValueOrDefault();
             }
 
             int amountValidStart = GetAmountValidResource(datePrivStart, datePrivEnd);

@@ -1,13 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-using System.Xml.Linq;
-using HtmlAgilityPack;
-
-using BmstuLibResources.Models;
-using BmstuLibResources.Core.Valitadion;
 
 namespace BmstuLibResources.Core.Valitadion
 {
@@ -68,10 +59,10 @@ namespace BmstuLibResources.Core.Valitadion
         private void AddResourceToValidationsTable(Resources resource, bool isValid, String msg)
         {
             Validations validation = new Validations();
-            validation.resource_id = resource.id;
+            validation.id_resource = resource.id;
             validation.is_valid = isValid;
             validation.description = msg;
-            validation.check_datetime = currentDateTime;
+            validation.check_date = currentDateTime;
             db.Validations.Add(validation);
         }
 

@@ -7,7 +7,9 @@
 // </автоматически создаваемое>
 //------------------------------------------------------------------------------
 
-namespace BmstuLibResources
-{
-    public partial class Help { }
+namespace BmstuLibResources {
+    
+    
+    public partial class Help {
+    }
 }

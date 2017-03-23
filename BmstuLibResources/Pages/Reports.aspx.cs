@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.IO;
-
 using BmstuLibResources.Core.Reports;
 
 namespace BmstuLibResources
@@ -13,37 +10,44 @@ namespace BmstuLibResources
     public partial class Reports : Page
     {
         protected void Page_Load(object sender, EventArgs e)
-        {       
+        {
             if (!Page.IsPostBack)
             {
                 try
                 {
-                    YearDropDownList.DataSource = GetYearsDataSource();
-                    YearDropDownList.DataTextField = "Text";
-                    YearDropDownList.DataValueField = "Value";
+                    listYear1.DataSource = GetYearsDataSource();
+                    listYear1.DataTextField = "Text";
+                    listYear1.DataValueField = "Value";
 
-                    YearDropDownList.DataBind();
+                    listYear1.DataBind();
+
+                    listYear2.DataSource = GetYearsDataSource();
+                    listYear2.DataTextField = "Text";
+                    listYear2.DataValueField = "Value";
+
+                    listYear2.DataBind();
                 }
-                catch (Exception exc) 
+                catch (Exception exc)
                 {
                     System.Diagnostics.Debug.WriteLine(exc);
                 }
             }
-        
+
         }
 
-        protected void btnGetReports_Click(object sender, EventArgs e)
+        protected void btnGetReport_Click(object sender, EventArgs e)
         {
-            int year = Convert.ToInt32(YearDropDownList.SelectedValue);
+            int year = Convert.ToInt32(listYear1.SelectedValue);
             DocxGenerator docxGenerator = new DocxGenerator();
             string fileName, reportPath;
-            if (ddlReportsType.SelectedValue.Equals("прибытия"))
+
+            if (listType.SelectedIndex == 0)
             {
                 docxGenerator.GetIncomingReport(year);
                 reportPath = Path.Combine(docxGenerator.TEMP_REPORT_PATH, docxGenerator.INCOMING_REPORT);
                 fileName = docxGenerator.INCOMING_REPORT;
             }
-            else if (ddlReportsType.SelectedValue.Equals("выбытия"))
+            else if (listType.SelectedIndex == 1)
             {
                 docxGenerator.GetRetirementReport(year);
                 reportPath = Path.Combine(docxGenerator.TEMP_REPORT_PATH, docxGenerator.RETIREMENT_REPORT);
@@ -79,9 +83,9 @@ namespace BmstuLibResources
 
         protected void btnGetStats_Click(object sender, EventArgs e)
         {
-            string fileName = "Статистика.docx";
-            int year = Convert.ToInt32(YearDropDownList.SelectedValue);
-            int month = MonthDropDownList.SelectedIndex + 1;
+            string fileName = "Статистика(" + listMonth.SelectedValue + "-" + listYear2.SelectedValue +").docx";
+            int year = Convert.ToInt32(listYear2.SelectedValue);
+            int month = listMonth.SelectedIndex + 1;
             DateTime upDate = new DateTime(year, month, 1);
             DateTime toDate = new DateTime(year, month, DateTime.DaysInMonth(year, month));
 
@@ -99,17 +103,5 @@ namespace BmstuLibResources
             response.Flush();
             response.End();
         }
-
-        protected void YearDropDownList_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void YearDropDownList_DataBound(object sender, EventArgs e)
-        {
-            
-        }
-
-
     }
 }

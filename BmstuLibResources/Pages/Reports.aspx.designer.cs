@@ -13,49 +13,49 @@ namespace BmstuLibResources {
     public partial class Reports {
         
         /// <summary>
-        /// YearLabel элемент управления.
+        /// listYear1 элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически создаваемое поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label YearLabel;
+        protected global::System.Web.UI.WebControls.DropDownList listYear1;
         
         /// <summary>
-        /// YearDropDownList элемент управления.
+        /// listType элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически создаваемое поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList YearDropDownList;
+        protected global::System.Web.UI.WebControls.DropDownList listType;
         
         /// <summary>
-        /// ddlReportsType элемент управления.
+        /// btnGetReport элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически создаваемое поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlReportsType;
+        protected global::System.Web.UI.WebControls.Button btnGetReport;
         
         /// <summary>
-        /// btnGetReports элемент управления.
+        /// listYear2 элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически создаваемое поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnGetReports;
+        protected global::System.Web.UI.WebControls.DropDownList listYear2;
         
         /// <summary>
-        /// MonthDropDownList элемент управления.
+        /// listMonth элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически создаваемое поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList MonthDropDownList;
+        protected global::System.Web.UI.WebControls.DropDownList listMonth;
         
         /// <summary>
         /// btnGetStats элемент управления.
